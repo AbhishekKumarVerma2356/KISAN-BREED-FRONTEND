@@ -1,0 +1,58 @@
+a {
+  transition: all 0.2s ease;
+}
+
+/* =========================================================
+   DESKTOP NAVIGATION
+   ========================================================= */
+
+.nav-link {
+  color: #a96b16;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #70450f;
+}
+
+/* =========================================================
+   ACTIVE DESKTOP ROUTE
+   ========================================================= */
+
+.nav-link.active-link {
+  color: #70450f !important;
+  font-weight: 600;
+}
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+.mobile-nav-link {
+  color: #70450f;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  color: #a96b16;
+}
+
+/* =========================================================
+   ACTIVE MOBILE ROUTE
+   ========================================================= */
+
+.mobile-nav-link.active-mobile-link {
+  color: #a96b16 !important;
+  font-weight: 700;
+}
+
+/* =========================================================
+   OPTIONAL
+   Remove default link styling
+   ========================================================= */
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,746 @@
+<section class="relative min-h-screen overflow-hidden bg-[#FFFDF5] py-8 sm:py-10">
+  <!-- ===================================================== -->
+  <!-- WATERMARK -->
+  <!-- ===================================================== -->
+
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.025]"
+    style="
+      background-image: url('assets/images/kisanbreed_backgound_wm.png');
+      background-size: 450px;
+      background-position: center;
+      background-repeat: repeat;
+    "
+  ></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <!-- ===================================================== -->
+    <!-- LOADING -->
+    <!-- ===================================================== -->
+
+    @if (isLoading) {
+      <div class="flex min-h-[55vh] items-center justify-center">
+        <div class="text-center">
+          <div
+            class="mx-auto h-11 w-11 animate-spin rounded-full border-4 border-[#F5E6C8] border-t-[#A95718]"
+          ></div>
+
+          <p class="mt-3 text-base font-bold text-[#5A3218]">Loading profile...</p>
+        </div>
+      </div>
+    }
+
+    <!-- ===================================================== -->
+    <!-- ERROR -->
+    <!-- ===================================================== -->
+
+    @else if (errorMessage) {
+      <div class="rounded-3xl border border-red-200 bg-red-50 p-6 text-center shadow-sm sm:p-8">
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-red-100">
+          <i class="bi bi-exclamation-triangle-fill text-xl text-red-600"></i>
+        </div>
+
+        <h2 class="mt-4 text-2xl font-black text-red-800">Unable to Load Profile</h2>
+
+        <p class="mt-2 text-sm text-red-700">
+          {{ errorMessage }}
+        </p>
+
+        <button
+          type="button"
+          (click)="loadProfile()"
+          class="mt-5 rounded-full bg-[#5A3218] px-6 py-2.5 text-sm font-bold text-white transition hover:bg-[#3B1F0F]"
+        >
+          Try Again
+        </button>
+      </div>
+    }
+
+    <!-- ===================================================== -->
+    <!-- PROFILE -->
+    <!-- ===================================================== -->
+
+    @else if (currentUser) {
+      <!-- ================================================= -->
+      <!-- PROFILE CARD -->
+      <!-- ================================================= -->
+
+      <div class="overflow-hidden rounded-3xl border border-[#8B5A2B]/15 bg-white shadow-xl">
+        <!-- ================================================= -->
+        <!-- PROFILE HEADER -->
+        <!-- ================================================= -->
+
+        <div class="relative overflow-hidden bg-[#F5E6C8] px-5 py-7 sm:px-7 sm:py-8">
+          <!-- HEADER WATERMARK -->
+
+          <div
+            class="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-[0.06]"
+            style="
+              background-image: url('assets/images/kisanbreed_backgound_wm.png');
+              background-size: 260px;
+              background-position: right center;
+              background-repeat: no-repeat;
+            "
+          ></div>
+
+          <div class="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <!-- TITLE -->
+
+            <div>
+              <p class="text-xs font-black uppercase tracking-[0.25em] text-[#A95718]">
+                My Profile
+              </p>
+
+              <h1 class="mt-1.5 text-3xl font-black tracking-tight text-[#32180B] sm:text-4xl">
+                {{ currentUser.full_name }}
+              </h1>
+
+              <p class="mt-1.5 text-sm font-medium text-[#6B4A35]">
+                Manage your personal information and address.
+              </p>
+            </div>
+
+            <!-- HEADER ACTIONS -->
+
+            <div class="flex flex-wrap gap-2.5">
+              @if (!isEditMode && !isPasswordMode) {
+                <button
+                  type="button"
+                  (click)="openEditMode()"
+                  class="inline-flex items-center rounded-full bg-[#5A3218] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#3B1F0F] hover:shadow-md active:scale-95"
+                >
+                  <i class="bi bi-pencil-fill me-2"></i>
+                  Update Profile
+                </button>
+
+                <button
+                  type="button"
+                  (click)="openPasswordMode()"
+                  class="inline-flex items-center rounded-full bg-[#A95718] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#7F3D0D] hover:shadow-md active:scale-95"
+                >
+                  <i class="bi bi-key-fill me-2"></i>
+                  Change Password
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- VIEW MODE -->
+        <!-- ================================================= -->
+
+        @if (!isEditMode) {
+          <div class="p-5 sm:p-7">
+            <!-- ============================================= -->
+            <!-- PERSONAL INFORMATION -->
+            <!-- ============================================= -->
+
+            <div>
+              <div class="flex items-center gap-3">
+                <div class="h-8 w-1 rounded-full bg-[#A95718]"></div>
+
+                <h2 class="text-xl font-black text-[#32180B] sm:text-2xl">Personal Information</h2>
+              </div>
+
+              <div class="mt-5 grid gap-4 md:grid-cols-2">
+                <!-- NAME -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Full Name
+                  </label>
+
+                  <div
+                    class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                  >
+                    {{ currentUser.full_name || '-' }}
+                  </div>
+                </div>
+
+                <!-- EMAIL -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Email Address
+                  </label>
+
+                  <div
+                    class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                  >
+                    {{ currentUser.email || '-' }}
+                  </div>
+                </div>
+
+                <!-- PHONE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Contact Number
+                  </label>
+
+                  <div
+                    class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                  >
+                    {{ currentUser.contact_number || '-' }}
+                  </div>
+                </div>
+
+                <!-- ALTERNATE PHONE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Alternate Contact
+                  </label>
+
+                  <div
+                    class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                  >
+                    {{ currentUser.alternate_contact_number || '-' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============================================= -->
+            <!-- ADDRESS -->
+            <!-- ============================================= -->
+
+            <div class="mt-8 border-t border-[#8B5A2B]/15 pt-7">
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div class="flex items-center gap-3">
+                    <div class="h-8 w-1 rounded-full bg-[#A95718]"></div>
+
+                    <h2 class="text-xl font-black text-[#32180B] sm:text-2xl">Address</h2>
+                  </div>
+
+                  <p class="mt-1 text-xs font-medium text-[#8B5A2B]">
+                    Your registered address details.
+                  </p>
+                </div>
+
+                @if (currentAddress?.address_type) {
+                  <span
+                    class="inline-flex w-fit items-center rounded-full bg-[#F5E6C8] px-3.5 py-1.5 text-xs font-black capitalize text-[#5A3218]"
+                  >
+                    <i class="bi bi-house-fill me-1.5"></i>
+                    {{ currentAddress.address_type }}
+                  </span>
+                }
+              </div>
+
+              @if (currentAddress) {
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <!-- HOUSE -->
+
+                  <div>
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      Flat / House No.
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.flat_house_no || '-' }}
+                    </div>
+                  </div>
+
+                  <!-- ADDRESS 1 -->
+
+                  <div>
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      Address Line 1
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.address1 || '-' }}
+                    </div>
+                  </div>
+
+                  <!-- ADDRESS 2 -->
+
+                  <div class="md:col-span-2">
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      Address Line 2
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.address2 || '-' }}
+                    </div>
+                  </div>
+
+                  <!-- STATE -->
+
+                  <div>
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      State
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.state || '-' }}
+                    </div>
+                  </div>
+
+                  <!-- CITY -->
+
+                  <div>
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      City / Village
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.city_village || '-' }}
+                    </div>
+                  </div>
+
+                  <!-- PINCODE -->
+
+                  <div>
+                    <label
+                      class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                    >
+                      Pincode
+                    </label>
+
+                    <div
+                      class="rounded-xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-4 py-3 text-sm font-semibold text-[#32180B]"
+                    >
+                      {{ currentAddress.pincode || '-' }}
+                    </div>
+                  </div>
+                </div>
+              } @else {
+                <div
+                  class="mt-5 rounded-xl border border-[#D08A2E]/20 bg-[#FFF9EF] px-4 py-4 text-sm font-semibold text-[#8B5A2B]"
+                >
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  No address information found.
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- EDIT MODE -->
+        <!-- ================================================= -->
+
+        @if (isEditMode) {
+          <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="p-5 sm:p-7">
+            <!-- PERSONAL -->
+
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-1 rounded-full bg-[#A95718]"></div>
+
+              <h2 class="text-xl font-black text-[#32180B] sm:text-2xl">
+                Edit Personal Information
+              </h2>
+            </div>
+
+            <div class="mt-5 grid gap-4 md:grid-cols-2">
+              <!-- NAME -->
+
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                >
+                  Full Name <span class="text-red-500">*</span>
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm font-medium text-[#32180B] outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                />
+              </div>
+
+              <!-- EMAIL -->
+
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                >
+                  Email Address <span class="text-red-500">*</span>
+                </label>
+
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm font-medium text-[#32180B] outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                />
+              </div>
+
+              <!-- PHONE -->
+
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                >
+                  Contact Number <span class="text-red-500">*</span>
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="phone"
+                  maxlength="15"
+                  class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm font-medium text-[#32180B] outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                />
+              </div>
+
+              <!-- ALTERNATE -->
+
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                >
+                  Alternate Contact
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="alternatePhone"
+                  maxlength="15"
+                  class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm font-medium text-[#32180B] outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                />
+              </div>
+            </div>
+
+            <!-- ADDRESS -->
+
+            <div class="mt-8 border-t border-[#8B5A2B]/15 pt-7">
+              <h2 class="text-xl font-black text-[#32180B] sm:text-2xl">Address Details</h2>
+
+              <p class="mt-1 text-xs font-medium text-[#8B5A2B]">
+                Update your home or work address.
+              </p>
+
+              <div class="mt-5 grid gap-4 md:grid-cols-2">
+                <!-- ADDRESS TYPE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Address Type <span class="text-red-500">*</span>
+                  </label>
+
+                  <div class="grid grid-cols-2 gap-2.5">
+                    <label class="cursor-pointer">
+                      <input
+                        type="radio"
+                        formControlName="addressType"
+                        value="home"
+                        class="peer sr-only"
+                      />
+
+                      <div
+                        class="rounded-xl border border-[#8B5A2B]/20 px-4 py-3 text-center text-sm font-bold text-[#5A3218] transition peer-checked:border-[#5A3218] peer-checked:bg-[#F5E6C8] peer-checked:text-[#32180B]"
+                      >
+                        <i class="bi bi-house-fill me-1.5"></i>
+                        Home
+                      </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                      <input
+                        type="radio"
+                        formControlName="addressType"
+                        value="work"
+                        class="peer sr-only"
+                      />
+
+                      <div
+                        class="rounded-xl border border-[#8B5A2B]/20 px-4 py-3 text-center text-sm font-bold text-[#5A3218] transition peer-checked:border-[#A95718] peer-checked:bg-[#FFF3E6] peer-checked:text-[#A95718]"
+                      >
+                        <i class="bi bi-building-fill me-1.5"></i>
+                        Work
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- HOUSE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Flat / House No. <span class="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    formControlName="flatHouseNo"
+                    maxlength="100"
+                    placeholder="Flat / House No."
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  />
+                </div>
+
+                <!-- ADDRESS 1 -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Address Line 1 <span class="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    formControlName="address1"
+                    maxlength="255"
+                    placeholder="Street / Road / Locality"
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  />
+                </div>
+
+                <!-- ADDRESS 2 -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Address Line 2
+                  </label>
+
+                  <input
+                    type="text"
+                    formControlName="address2"
+                    maxlength="255"
+                    placeholder="Landmark / Area"
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  />
+                </div>
+
+                <!-- STATE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    State <span class="text-red-500">*</span>
+                  </label>
+
+                  <select
+                    formControlName="state"
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  >
+                    <option value="">Select State</option>
+
+                    @for (state of states; track state) {
+                      <option [value]="state">
+                        {{ state }}
+                      </option>
+                    }
+                  </select>
+                </div>
+
+                <!-- CITY -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    City / Village <span class="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    formControlName="cityVillage"
+                    maxlength="150"
+                    placeholder="City / Village"
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  />
+                </div>
+
+                <!-- PINCODE -->
+
+                <div>
+                  <label
+                    class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]"
+                  >
+                    Pincode <span class="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    formControlName="pincode"
+                    maxlength="10"
+                    placeholder="Pincode"
+                    class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTIONS -->
+
+            <div class="mt-7 flex flex-wrap gap-2.5 border-t border-[#8B5A2B]/15 pt-6">
+              <button
+                type="submit"
+                [disabled]="isSaving"
+                class="rounded-full bg-[#A95718] px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#7F3D0D] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                @if (isSaving) {
+                  <i class="bi bi-arrow-repeat me-2 animate-spin"></i>
+                  Saving...
+                } @else {
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  Save Profile
+                }
+              </button>
+
+              <button
+                type="button"
+                (click)="cancelEditMode()"
+                [disabled]="isSaving"
+                class="rounded-full border border-[#8B5A2B]/30 bg-[#FFFDF7] px-6 py-2.5 text-sm font-bold text-[#5A3218] transition hover:bg-[#F5E6C8] disabled:opacity-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        }
+      </div>
+
+      <!-- ================================================= -->
+      <!-- CHANGE PASSWORD -->
+      <!-- ================================================= -->
+
+      @if (isPasswordMode) {
+        <div class="mt-6 rounded-3xl border border-[#8B5A2B]/15 bg-white p-5 shadow-lg sm:p-7">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-black uppercase tracking-[0.25em] text-[#A95718]">Security</p>
+
+              <h2 class="mt-1.5 text-2xl font-black text-[#32180B]">Change Password</h2>
+
+              <p class="mt-1 text-xs font-medium text-[#8B5A2B]">
+                Update your account password securely.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              (click)="cancelPasswordMode()"
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5E6C8] text-[#5A3218] transition hover:bg-[#E8D5B5]"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <form
+            [formGroup]="passwordForm"
+            (ngSubmit)="changePassword()"
+            class="mt-6 max-w-2xl space-y-4"
+          >
+            <!-- CURRENT -->
+
+            <div>
+              <label class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]">
+                Current Password
+                <span class="text-red-500">*</span>
+              </label>
+
+              <input
+                type="password"
+                formControlName="currentPassword"
+                placeholder="Enter current password"
+                class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+              />
+            </div>
+
+            <!-- NEW -->
+
+            <div>
+              <label class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]">
+                New Password
+                <span class="text-red-500">*</span>
+              </label>
+
+              <input
+                type="password"
+                formControlName="newPassword"
+                placeholder="Enter new password"
+                class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+              />
+
+              <p class="mt-1 text-[11px] font-medium text-[#8B5A2B]">Minimum 6 characters.</p>
+            </div>
+
+            <!-- CONFIRM -->
+
+            <div>
+              <label class="mb-1.5 block text-xs font-black uppercase tracking-wide text-[#5A3218]">
+                Confirm Password
+                <span class="text-red-500">*</span>
+              </label>
+
+              <input
+                type="password"
+                formControlName="confirmPassword"
+                placeholder="Confirm new password"
+                class="w-full rounded-xl border border-[#8B5A2B]/20 bg-[#FFFDF7] px-4 py-3 text-sm outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#A95718]/10"
+              />
+            </div>
+
+            <!-- ACTION -->
+
+            <div class="flex flex-wrap gap-2.5 pt-2">
+              <button
+                type="submit"
+                [disabled]="isChangingPassword"
+                class="rounded-full bg-[#5A3218] px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#3B1F0F] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                @if (isChangingPassword) {
+                  <i class="bi bi-arrow-repeat me-2 animate-spin"></i>
+                  Updating...
+                } @else {
+                  <i class="bi bi-shield-check me-2"></i>
+                  Save Password
+                }
+              </button>
+
+              <button
+                type="button"
+                (click)="cancelPasswordMode()"
+                [disabled]="isChangingPassword"
+                class="rounded-full border border-[#8B5A2B]/30 bg-[#FFFDF7] px-6 py-2.5 text-sm font-bold text-[#5A3218] transition hover:bg-[#F5E6C8]"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+    }
+  </div>
+</section>

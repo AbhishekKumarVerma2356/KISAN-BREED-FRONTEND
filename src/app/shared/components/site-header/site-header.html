@@ -1,0 +1,435 @@
+<header class="sticky top-0 z-50 border-t-[4px] border-[#a96b16] bg-[#faf8ee] shadow-sm">
+  <!-- ===================================================== -->
+  <!-- MAIN HEADER -->
+  <!-- ===================================================== -->
+
+  <div
+    class="mx-auto grid h-[92px] max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center px-6 lg:px-10"
+  >
+    <!-- ================================================= -->
+    <!-- LEFT NAVIGATION -->
+    <!-- ================================================= -->
+
+    <nav class="hidden items-center gap-8 md:flex">
+      <!-- HOME -->
+
+      <a
+        routerLink="/"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link text-[13px] font-medium transition"
+      >
+        Home
+      </a>
+
+      <!-- PRODUCTS -->
+
+      <a
+        routerLink="/products"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link flex items-center gap-1 text-[13px] font-medium transition"
+      >
+        Products
+      </a>
+
+      <!-- ABOUT -->
+
+      <a
+        routerLink="/about"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link text-[13px] font-medium transition"
+      >
+        About
+      </a>
+
+      <!-- CONTACT -->
+
+      <a
+        routerLink="/contact"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link text-[13px] font-medium transition"
+      >
+        Contact
+      </a>
+    </nav>
+
+    <!-- ================================================= -->
+    <!-- CENTER LOGO -->
+    <!-- ================================================= -->
+
+    <a routerLink="/" (click)="closeMenu()" class="flex flex-col items-center justify-center">
+      <img
+        src="assets/images/brand-logo.jpeg"
+        alt="Kisan Breed Logo"
+        class="h-[46px] w-[46px] rounded-full object-cover"
+      />
+
+      <div class="mt-0.5 text-center">
+        <h1 class="text-[20px] font-black leading-none tracking-[0.08em] text-[#32180B]">
+          KISAN BREED
+        </h1>
+
+        <p class="mt-1 text-[12px] font-medium uppercase tracking-[0.18em] text-[#45230F]">
+          Farmer First Solutions
+        </p>
+      </div>
+    </a>
+
+    <!-- ================================================= -->
+    <!-- RIGHT ACTIONS -->
+    <!-- ================================================= -->
+
+    <div class="hidden items-center justify-end gap-6 md:flex">
+      <!-- ================================================= -->
+      <!-- LOGGED OUT -->
+      <!-- ================================================= -->
+
+      @if (!isLoggedIn) {
+        <!-- LOGIN -->
+
+        <a
+          routerLink="/auth"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link flex items-center gap-2 text-[13px] font-medium transition"
+          aria-label="Login"
+        >
+          <!-- PERSON ICON -->
+
+          <svg
+            class="h-5.5 w-5.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+          >
+            <circle cx="12" cy="8" r="4" />
+
+            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke-linecap="round" />
+          </svg>
+
+          <span class="hidden xl:inline"> Login / Sign Up </span>
+        </a>
+      }
+
+      <!-- ================================================= -->
+      <!-- LOGGED IN -->
+      <!-- ================================================= -->
+
+      @if (isLoggedIn) {
+        <!-- PROFILE -->
+
+        <a
+          routerLink="/profile"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link flex items-center gap-2 text-[13px] font-medium transition"
+          aria-label="Profile"
+        >
+          <!-- PERSON ICON -->
+
+          <svg
+            class="h-5.5 w-5.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+          >
+            <circle cx="12" cy="8" r="4" />
+
+            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke-linecap="round" />
+          </svg>
+
+          <span class="hidden xl:inline"> Profile </span>
+        </a>
+      }
+
+      <!-- ================================================= -->
+      <!-- CART -->
+      <!-- ================================================= -->
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link relative flex items-center justify-center transition"
+        aria-label="Cart"
+      >
+        <svg
+          class="h-6 w-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        >
+          <path d="M5 8h14l1 13H4L5 8z" stroke-linejoin="round" />
+
+          <path d="M9 8V6a3 3 0 016 0v2" stroke-linecap="round" />
+        </svg>
+
+        @if (cartCount > 0) {
+          <span
+            class="absolute -right-[10px] -top-[8px] flex h-[19px] min-w-[19px] items-center justify-center rounded-full bg-[#d93636] px-1 text-[10px] font-bold text-white"
+          >
+            {{ cartCount }}
+          </span>
+        }
+      </a>
+
+      <!-- ================================================= -->
+      <!-- LOGOUT -->
+      <!-- ================================================= -->
+
+      @if (isLoggedIn) {
+        <button
+          type="button"
+          (click)="logout()"
+          [disabled]="isLoggingOut"
+          class="flex items-center gap-2 text-[13px] font-medium text-[#a96b16] transition hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label="Logout"
+        >
+          @if (isLoggingOut) {
+            <!-- LOADING -->
+
+            <svg
+              class="h-[21px] w-[21px] animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="9" class="opacity-25" />
+
+              <path d="M21 12a9 9 0 00-9-9" stroke-linecap="round" />
+            </svg>
+
+            <span class="hidden xl:inline"> Logging out... </span>
+          } @else {
+            <!-- LOGOUT ICON -->
+
+            <svg
+              class="h-[21px] w-[21px]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <path
+                d="M10 4H5a1 1 0 00-1 1v14a1 1 0 001 1h5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <path d="M14 8l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+
+              <path d="M18 12H9" stroke-linecap="round" />
+            </svg>
+
+            <span class="hidden xl:inline"> Logout </span>
+          }
+        </button>
+      }
+    </div>
+
+    <!-- ================================================= -->
+    <!-- MOBILE MENU BUTTON -->
+    <!-- ================================================= -->
+
+    <button
+      type="button"
+      class="justify-self-end rounded border border-[#a96b16] px-3 py-2 text-[#a96b16] md:hidden"
+      (click)="toggleMenu()"
+      aria-label="Open menu"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16" stroke-linecap="round" />
+
+        <path d="M4 12h16" stroke-linecap="round" />
+
+        <path d="M4 18h16" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- MOBILE NAVIGATION -->
+  <!-- ===================================================== -->
+
+  @if (mobileMenuOpen) {
+    <div class="border-t border-[#ded8c7] bg-[#faf8ee] md:hidden">
+      <nav class="flex flex-col px-6 py-5">
+        <!-- HOME -->
+
+        <a
+          routerLink="/"
+          routerLinkActive="active-mobile-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="mobile-nav-link border-b border-[#e5dfd0] py-4 text-sm font-medium"
+          (click)="closeMenu()"
+        >
+          Home
+        </a>
+
+        <!-- PRODUCTS -->
+
+        <a
+          routerLink="/products"
+          routerLinkActive="active-mobile-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="mobile-nav-link border-b border-[#e5dfd0] py-4 text-sm font-medium"
+          (click)="closeMenu()"
+        >
+          Products
+        </a>
+
+        <!-- ABOUT -->
+
+        <a
+          routerLink="/about"
+          routerLinkActive="active-mobile-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="mobile-nav-link border-b border-[#e5dfd0] py-4 text-sm font-medium"
+          (click)="closeMenu()"
+        >
+          About
+        </a>
+
+        <!-- CONTACT -->
+
+        <a
+          routerLink="/contact"
+          routerLinkActive="active-mobile-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="mobile-nav-link border-b border-[#e5dfd0] py-4 text-sm font-medium"
+          (click)="closeMenu()"
+        >
+          Contact
+        </a>
+
+        <!-- ================================================= -->
+        <!-- CART -->
+        <!-- ================================================= -->
+
+        <a
+          routerLink="/cart"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link relative flex items-center justify-center transition"
+          aria-label="Cart"
+        >
+          <svg
+            class="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+          >
+            <path d="M5 8h14l1 13H4L5 8z" stroke-linejoin="round" />
+
+            <path d="M9 8V6a3 3 0 016 0v2" stroke-linecap="round" />
+          </svg>
+
+          @if (cartCount > 0) {
+            <span
+              class="absolute -right-[10px] -top-[8px] flex h-[19px] min-w-[19px] items-center justify-center rounded-full bg-[#d93636] px-1 text-[10px] font-bold text-white"
+            >
+              {{ cartCount }}
+            </span>
+          }
+        </a>
+
+        <!-- ================================================= -->
+        <!-- PROFILE -->
+        <!-- ================================================= -->
+
+        @if (isLoggedIn) {
+          <a
+            routerLink="/profile"
+            routerLinkActive="active-mobile-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="mobile-nav-link flex items-center gap-3 border-b border-[#e5dfd0] py-4 text-sm font-semibold"
+            (click)="closeMenu()"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <circle cx="12" cy="8" r="4" />
+
+              <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke-linecap="round" />
+            </svg>
+
+            Profile
+          </a>
+        }
+
+        <!-- ================================================= -->
+        <!-- LOGIN -->
+        <!-- ================================================= -->
+
+        @if (!isLoggedIn) {
+          <a
+            routerLink="/auth"
+            routerLinkActive="active-mobile-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="mobile-nav-link flex items-center gap-3 border-b border-[#e5dfd0] py-4 text-sm font-semibold"
+            (click)="closeMenu()"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <circle cx="12" cy="8" r="4" />
+
+              <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" stroke-linecap="round" />
+            </svg>
+
+            Login / Sign Up
+          </a>
+        }
+
+        <!-- ================================================= -->
+        <!-- LOGOUT -->
+        <!-- ================================================= -->
+
+        @if (isLoggedIn) {
+          <button
+            type="button"
+            (click)="logout()"
+            [disabled]="isLoggingOut"
+            class="flex items-center gap-3 py-4 text-left text-sm font-semibold text-red-600 disabled:opacity-50"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            >
+              <path d="M10 4H5a1 1 0 00-1 1v14a1 1 0 001 1h5" stroke-linecap="round" />
+
+              <path d="M14 8l4 4-4 4" stroke-linecap="round" />
+
+              <path d="M18 12H9" stroke-linecap="round" />
+            </svg>
+
+            @if (isLoggingOut) {
+              Logging out...
+            } @else {
+              Logout
+            }
+          </button>
+        }
+      </nav>
+    </div>
+  }
+</header>

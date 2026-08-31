@@ -1,0 +1,914 @@
+<section class="min-h-screen bg-[#FFFDF7] px-4 py-8 sm:px-6 lg:px-8">
+  <div class="mx-auto grid max-w-7xl items-stretch gap-8 lg:grid-cols-2">
+    <!-- ===================================================== -->
+    <!-- LEFT SIDE -->
+    <!-- ===================================================== -->
+
+    <div
+      class="relative flex min-h-[680px] overflow-hidden rounded-3xl bg-[#F5E6C8] p-7 shadow-xl sm:p-10 lg:min-h-[720px] lg:p-12"
+    >
+      <!-- Decorative -->
+
+      <div
+        class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#A95718]/10"
+      ></div>
+
+      <div
+        class="pointer-events-none absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#8B5A2B]/10"
+      ></div>
+
+      <div
+        class="pointer-events-none absolute right-1/3 top-1/2 h-40 w-40 rounded-full bg-[#A95718]/5"
+      ></div>
+
+      <!-- CONTENT -->
+
+      <div class="relative z-10 flex w-full flex-col justify-center">
+        <p
+          class="inline-block w-fit rounded-full border border-[#8B5A2B]/20 bg-[#FFFDF7]/60 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#A95718] sm:text-sm"
+        >
+          Welcome to Kisan Breed
+        </p>
+
+        <h1
+          class="mt-6 text-3xl font-black leading-tight tracking-tight text-[#32180B] sm:text-4xl lg:text-5xl xl:text-6xl"
+        >
+          किसान के भरोसे का
+
+          <span class="mt-2 block text-[#A95718]"> डिजिटल प्लेटफॉर्म </span>
+        </h1>
+
+        <p
+          class="mt-6 max-w-xl text-sm font-medium leading-7 text-[#5A3218] sm:text-base sm:leading-8"
+        >
+          Login or create your account to explore products, connect with our team, and stay updated
+          with Kisan Breed solutions.
+        </p>
+
+        <!-- FEATURES -->
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <div
+            class="rounded-2xl border border-[#8B5A2B]/15 bg-[#FFFDF7]/50 p-5 shadow-sm backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-[#FFFDF7]/75 hover:shadow-md"
+          >
+            <div
+              class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#5A3218] text-lg text-white"
+            >
+              ✓
+            </div>
+
+            <h3 class="text-base font-black text-[#5A3218] sm:text-lg">Trusted Brand</h3>
+
+            <p class="mt-2 text-xs font-medium leading-6 text-[#6B5544] sm:text-sm">
+              Farmer-focused agricultural solutions with a modern experience.
+            </p>
+          </div>
+
+          <div
+            class="rounded-2xl border border-[#8B5A2B]/15 bg-[#FFFDF7]/50 p-5 shadow-sm backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-[#FFFDF7]/75 hover:shadow-md"
+          >
+            <div
+              class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#A95718] text-lg text-white"
+            >
+              →
+            </div>
+
+            <h3 class="text-base font-black text-[#5A3218] sm:text-lg">Easy Access</h3>
+
+            <p class="mt-2 text-xs font-medium leading-6 text-[#6B5544] sm:text-sm">
+              Simple login and signup flow for all device sizes.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-[#8B5A2B]/15 pt-5">
+          <p class="text-xs font-bold uppercase tracking-widest text-[#806F60]">
+            Agriculture • Growth • Trust
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- RIGHT SIDE -->
+    <!-- ===================================================== -->
+
+    <div class="w-full">
+      <div
+        class="flex min-h-[680px] flex-col overflow-hidden rounded-3xl border border-[#8B5A2B]/15 bg-white shadow-2xl lg:min-h-[720px]"
+      >
+        <!-- ================================================= -->
+        <!-- LOGIN / SIGNUP TABS -->
+        <!-- ================================================= -->
+
+        @if (activeTab !== 'forgot') {
+          <div class="grid shrink-0 grid-cols-2 border-b border-[#E8D5BA] bg-[#F5E6C8]/45">
+            <!-- LOGIN -->
+
+            <button
+              type="button"
+              (click)="switchTab('login')"
+              class="px-6 py-4 text-sm font-black uppercase tracking-wider transition-all duration-300"
+              [ngClass]="
+                activeTab === 'login'
+                  ? 'bg-[#5A3218] text-white shadow-md'
+                  : 'text-[#5A3218] hover:bg-[#F5E6C8]'
+              "
+            >
+              Login
+            </button>
+
+            <!-- SIGNUP -->
+
+            <button
+              type="button"
+              (click)="switchTab('signup')"
+              class="px-6 py-4 text-sm font-black uppercase tracking-wider transition-all duration-300"
+              [ngClass]="
+                activeTab === 'signup'
+                  ? 'bg-[#A95718] text-white shadow-md'
+                  : 'text-[#5A3218] hover:bg-[#F5E6C8]'
+              "
+            >
+              Sign Up
+            </button>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- LOGIN -->
+        <!-- ================================================= -->
+
+        @if (activeTab === 'login') {
+          <div class="min-h-0 flex-1 overflow-y-auto">
+            <div class="flex min-h-full items-center p-6 sm:p-8">
+              <div class="w-full">
+                <p class="text-sm font-black uppercase tracking-[0.2em] text-[#A95718]">
+                  Account Access
+                </p>
+
+                <h2 class="mt-3 text-2xl font-black text-[#32180B] sm:text-3xl">Welcome Back</h2>
+
+                <p class="mt-2 text-sm font-medium text-[#6B5544]">
+                  Login to continue to your account.
+                </p>
+
+                <!-- ERROR -->
+
+                @if (errorMessage) {
+                  <div
+                    class="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
+                  >
+                    {{ errorMessage }}
+                  </div>
+                }
+
+                <!-- SUCCESS -->
+
+                @if (successMessage) {
+                  <div
+                    class="mt-5 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700"
+                  >
+                    {{ successMessage }}
+                  </div>
+                }
+
+                <!-- LOGIN FORM -->
+
+                <form class="mt-7 space-y-5" (ngSubmit)="login()" #loginForm="ngForm">
+                  <!-- EMAIL -->
+
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Email Address
+                    </label>
+
+                    <input
+                      type="email"
+                      name="loginEmail"
+                      [(ngModel)]="loginData.email"
+                      required
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+
+                  <!-- PASSWORD -->
+
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]"> Password </label>
+
+                    <input
+                      type="password"
+                      name="loginPassword"
+                      [(ngModel)]="loginData.password"
+                      required
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="Enter your password"
+                    />
+                  </div>
+
+                  <!-- FORGOT PASSWORD -->
+
+                  <div class="flex justify-end">
+                    <button
+                      type="button"
+                      (click)="switchTab('forgot')"
+                      class="cursor-pointer text-sm font-bold text-[#A95718] transition hover:text-[#5A3218] hover:underline"
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+
+                  <!-- LOGIN BUTTON -->
+
+                  <button
+                    type="submit"
+                    [disabled]="loading"
+                    class="w-full rounded-2xl bg-[#5A3218] px-6 py-3.5 font-bold text-white shadow-md transition-all duration-300 hover:bg-[#32180B] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    @if (loading) {
+                      Logging in...
+                    } @else {
+                      Login
+                    }
+                  </button>
+                </form>
+
+                <div class="mt-8 border-t border-[#E8D5BA] pt-5 text-center">
+                  <p class="text-xs font-medium text-[#806F60]">
+                    Secure access to your Kisan Breed account
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- SIGN UP -->
+        <!-- ================================================= -->
+
+        @if (activeTab === 'signup') {
+          <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+            <div class="p-6 sm:p-8">
+              <p class="text-sm font-black uppercase tracking-[0.2em] text-[#A95718]">
+                New Account
+              </p>
+
+              <h2 class="mt-3 text-2xl font-black text-[#32180B] sm:text-3xl">Create Account</h2>
+
+              <p class="mt-2 text-sm font-medium text-[#6B5544]">
+                Sign up to get started with Kisan Breed.
+              </p>
+
+              <!-- SIGNUP FORM -->
+
+              <form class="mt-7 space-y-5" (ngSubmit)="signup()" #signupForm="ngForm">
+                <!-- NAME -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Full Name
+                    <span class="text-[#B23A1A]">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    name="signupName"
+                    [(ngModel)]="signupData.name"
+                    required
+                    minlength="2"
+                    maxlength="150"
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                    placeholder="Enter full name"
+                  />
+                </div>
+
+                <!-- EMAIL + PHONE -->
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Email Address
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="email"
+                      name="signupEmail"
+                      [(ngModel)]="signupData.email"
+                      required
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="Enter email"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Phone Number
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="tel"
+                      name="signupPhone"
+                      [(ngModel)]="signupData.phone"
+                      required
+                      maxlength="10"
+                      pattern="[0-9]{10}"
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="10 digit phone"
+                    />
+                  </div>
+                </div>
+
+                <!-- ALTERNATE PHONE -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Alternate Phone Number
+                  </label>
+
+                  <input
+                    type="tel"
+                    name="alternatePhone"
+                    [(ngModel)]="signupData.alternatePhone"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none transition focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                    placeholder="Alternate phone number"
+                  />
+                </div>
+
+                <!-- ADDRESS -->
+
+                <div class="border-t border-[#E8D5BA] pt-5">
+                  <h3 class="text-lg font-black text-[#32180B]">Address Details</h3>
+
+                  <p class="mt-1 text-sm font-medium text-[#806F60]">
+                    Please provide your address information.
+                  </p>
+                </div>
+
+                <!-- ADDRESS TYPE -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Address Type
+                    <span class="text-[#B23A1A]">*</span>
+                  </label>
+
+                  <div class="flex overflow-hidden rounded-2xl border border-[#D9C5A8]">
+                    <button
+                      type="button"
+                      (click)="signupData.addressType = 'home'"
+                      [ngClass]="
+                        signupData.addressType === 'home'
+                          ? 'bg-[#5A3218] text-white'
+                          : 'bg-[#FFFDF7] text-[#5A3218]'
+                      "
+                      class="flex-1 px-5 py-3 font-bold transition hover:bg-[#F5E6C8]"
+                    >
+                      🏠 Home
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="signupData.addressType = 'work'"
+                      [ngClass]="
+                        signupData.addressType === 'work'
+                          ? 'bg-[#A95718] text-white'
+                          : 'bg-[#FFFDF7] text-[#A95718]'
+                      "
+                      class="flex-1 px-5 py-3 font-bold transition hover:bg-[#F5E6C8]"
+                    >
+                      💼 Work
+                    </button>
+                  </div>
+                </div>
+
+                <!-- HOUSE -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Flat / House No.
+                    <span class="text-[#B23A1A]">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    name="flatHouseNo"
+                    [(ngModel)]="signupData.flatHouseNo"
+                    required
+                    maxlength="100"
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                    placeholder="Flat / House No."
+                  />
+                </div>
+
+                <!-- ADDRESS 1 -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Address Line 1
+                    <span class="text-[#B23A1A]">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    name="address1"
+                    [(ngModel)]="signupData.address1"
+                    required
+                    maxlength="255"
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                    placeholder="Street, Road, Area"
+                  />
+                </div>
+
+                <!-- ADDRESS 2 -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    Address Line 2
+                  </label>
+
+                  <input
+                    type="text"
+                    name="address2"
+                    [(ngModel)]="signupData.address2"
+                    maxlength="255"
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                    placeholder="Landmark / Locality"
+                  />
+                </div>
+
+                <!-- STATE -->
+
+                <div>
+                  <label class="mb-2 block text-sm font-black text-[#32180B]">
+                    State
+                    <span class="text-[#B23A1A]">*</span>
+                  </label>
+
+                  <select
+                    name="state"
+                    [(ngModel)]="signupData.state"
+                    required
+                    class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                  >
+                    <option value="">Select State</option>
+
+                    @for (state of states; track state) {
+                      <option [value]="state">
+                        {{ state }}
+                      </option>
+                    }
+                  </select>
+                </div>
+
+                <!-- CITY + PINCODE -->
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      City / Village
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="text"
+                      name="cityVillage"
+                      [(ngModel)]="signupData.cityVillage"
+                      required
+                      maxlength="150"
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="City / Village"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Pincode
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="text"
+                      name="pincode"
+                      [(ngModel)]="signupData.pincode"
+                      required
+                      maxlength="6"
+                      pattern="[0-9]{6}"
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="6 digit pincode"
+                    />
+                  </div>
+                </div>
+
+                <!-- SECURITY -->
+
+                <div class="border-t border-[#E8D5BA] pt-5">
+                  <h3 class="text-lg font-black text-[#32180B]">Security</h3>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Password
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="password"
+                      name="signupPassword"
+                      [(ngModel)]="signupData.password"
+                      required
+                      minlength="6"
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="Create password"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="mb-2 block text-sm font-black text-[#32180B]">
+                      Confirm Password
+                      <span class="text-[#B23A1A]">*</span>
+                    </label>
+
+                    <input
+                      type="password"
+                      name="signupConfirmPassword"
+                      [(ngModel)]="signupData.confirmPassword"
+                      required
+                      class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                      placeholder="Confirm password"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  [disabled]="loading"
+                  class="w-full rounded-2xl bg-[#A95718] px-6 py-3.5 font-bold text-white shadow-md transition-all duration-300 hover:bg-[#7F3D0D] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  @if (loading) {
+                    Creating Account...
+                  } @else {
+                    Create Account
+                  }
+                </button>
+              </form>
+            </div>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- FORGOT PASSWORD -->
+        <!-- ================================================= -->
+
+        @if (activeTab === 'forgot') {
+          <div class="min-h-0 flex-1 overflow-y-auto">
+            <div class="flex min-h-full items-center p-6 sm:p-8">
+              <div class="w-full">
+                <!-- BACK -->
+
+                <button
+                  type="button"
+                  (click)="backToLogin()"
+                  class="mb-6 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-[#6B5544] transition hover:text-[#A95718]"
+                >
+                  <i class="bi bi-arrow-left"></i>
+
+                  Back to Login
+                </button>
+
+                <!-- HEADER -->
+
+                <div class="text-center">
+                  <div
+                    class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F5E6C8] text-2xl text-[#A95718] shadow-sm"
+                  >
+                    @if (forgotStep === 1) {
+                      <i class="bi bi-envelope-fill"></i>
+                    }
+
+                    @if (forgotStep === 2) {
+                      <i class="bi bi-shield-lock-fill"></i>
+                    }
+
+                    @if (forgotStep === 3) {
+                      <i class="bi bi-key-fill"></i>
+                    }
+                  </div>
+
+                  <p class="mt-5 text-sm font-black uppercase tracking-[0.2em] text-[#A95718]">
+                    Account Recovery
+                  </p>
+
+                  <h2 class="mt-3 text-2xl font-black text-[#32180B] sm:text-3xl">
+                    @if (forgotStep === 1) {
+                      Forgot Password?
+                    }
+
+                    @if (forgotStep === 2) {
+                      Verify Your Email
+                    }
+
+                    @if (forgotStep === 3) {
+                      Create New Password
+                    }
+                  </h2>
+
+                  <p class="mx-auto mt-2 max-w-md text-sm font-medium leading-6 text-[#6B5544]">
+                    @if (forgotStep === 1) {
+                      Enter your registered email address and we'll send you a 6-digit verification
+                      code.
+                    }
+
+                    @if (forgotStep === 2) {
+                      Enter the 6-digit code sent to
+
+                      <span class="font-bold text-[#5A3218]">
+                        {{ forgotEmail }}
+                      </span>
+                    }
+
+                    @if (forgotStep === 3) {
+                      Create a strong new password for your Kisan Breed account.
+                    }
+                  </p>
+                </div>
+
+                <!-- ================================================= -->
+                <!-- STEP INDICATOR -->
+                <!-- ================================================= -->
+
+                <div class="mx-auto mt-8 flex max-w-sm items-center">
+                  <div class="flex flex-1 items-center">
+                    <div
+                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black"
+                      [ngClass]="
+                        forgotStep >= 1 ? 'bg-[#5A3218] text-white' : 'bg-[#F5E6C8] text-[#8B5A2B]'
+                      "
+                    >
+                      1
+                    </div>
+
+                    <div class="h-1 flex-1 bg-[#E8D5BA]"></div>
+                  </div>
+
+                  <div class="flex flex-1 items-center">
+                    <div
+                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black"
+                      [ngClass]="
+                        forgotStep >= 2 ? 'bg-[#A95718] text-white' : 'bg-[#F5E6C8] text-[#8B5A2B]'
+                      "
+                    >
+                      2
+                    </div>
+
+                    <div class="h-1 flex-1 bg-[#E8D5BA]"></div>
+                  </div>
+
+                  <div
+                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black"
+                    [ngClass]="
+                      forgotStep >= 3 ? 'bg-[#5A3218] text-white' : 'bg-[#F5E6C8] text-[#8B5A2B]'
+                    "
+                  >
+                    3
+                  </div>
+                </div>
+
+                <!-- ERROR -->
+
+                @if (forgotError) {
+                  <div
+                    class="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"
+                  >
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                    {{ forgotError }}
+                  </div>
+                }
+
+                <!-- SUCCESS -->
+
+                @if (forgotSuccess) {
+                  <div
+                    class="mt-6 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700"
+                  >
+                    <i class="bi bi-check-circle-fill me-2"></i>
+
+                    {{ forgotSuccess }}
+                  </div>
+                }
+
+                <!-- ================================================= -->
+                <!-- STEP 1 -->
+                <!-- ================================================= -->
+
+                @if (forgotStep === 1) {
+                  <form
+                    class="mx-auto mt-8 max-w-md space-y-5"
+                    (ngSubmit)="sendForgotPasswordCode()"
+                    #forgotEmailForm="ngForm"
+                  >
+                    <div>
+                      <label class="mb-2 block text-sm font-black text-[#32180B]" for="forgotEmail">
+                        Email Address
+                      </label>
+
+                      <div class="relative">
+                        <i
+                          class="bi bi-envelope absolute left-4 top-1/2 -translate-y-1/2 text-[#A95718]"
+                        ></i>
+
+                        <input
+                          #forgotEmailInput
+                          id="forgotEmail"
+                          type="email"
+                          name="forgotEmail"
+                          [(ngModel)]="forgotEmail"
+                          required
+                          autocomplete="email"
+                          class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] py-3.5 pl-11 pr-4 font-medium text-[#32180B] outline-none transition placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                          placeholder="Enter your registered email"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      [disabled]="forgotLoading"
+                      class="w-full cursor-pointer rounded-2xl bg-[#A95718] px-6 py-3.5 font-bold text-white shadow-md transition-all duration-300 hover:bg-[#7F3D0D] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      @if (forgotLoading) {
+                        <i class="bi bi-arrow-repeat me-2 animate-spin"></i>
+
+                        Sending Code...
+                      } @else {
+                        <i class="bi bi-send-fill me-2"></i>
+
+                        Send Verification Code
+                      }
+                    </button>
+                  </form>
+                }
+
+                <!-- ================================================= -->
+                <!-- STEP 2 -->
+                <!-- ================================================= -->
+
+                @if (forgotStep === 2) {
+                  <form
+                    class="mx-auto mt-8 max-w-md space-y-5"
+                    (ngSubmit)="verifyForgotPasswordCode()"
+                    #otpForm="ngForm"
+                  >
+                    <div>
+                      <label for="forgotOtp" class="mb-2 block text-sm font-black text-[#32180B]">
+                        6-Digit Verification Code
+                      </label>
+
+                      <input
+                        #forgotOtpInput
+                        id="forgotOtp"
+                        type="text"
+                        name="forgotOtp"
+                        [(ngModel)]="forgotOtp"
+                        required
+                        maxlength="6"
+                        minlength="6"
+                        pattern="[0-9]{6}"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-4 text-center text-2xl font-black tracking-[0.5em] text-[#32180B] outline-none transition placeholder:text-[#B8A28A] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                        placeholder="000000"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      [disabled]="forgotLoading"
+                      class="w-full cursor-pointer rounded-2xl bg-[#5A3218] px-6 py-3.5 font-bold text-white shadow-md transition-all duration-300 hover:bg-[#32180B] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      @if (forgotLoading) {
+                        <i class="bi bi-arrow-repeat me-2 animate-spin"></i>
+
+                        Verifying...
+                      } @else {
+                        <i class="bi bi-shield-check me-2"></i>
+
+                        Verify Code
+                      }
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="
+                        forgotStep = 1; forgotError = ''; forgotSuccess = ''; focusForgotEmail()
+                      "
+                      class="w-full cursor-pointer rounded-2xl border-2 border-[#D9C5A8] px-6 py-3 font-bold text-[#5A3218] transition hover:bg-[#F5E6C8]"
+                    >
+                      Change Email
+                    </button>
+                  </form>
+                }
+
+                <!-- ================================================= -->
+                <!-- STEP 3 -->
+                <!-- ================================================= -->
+
+                @if (forgotStep === 3) {
+                  <form
+                    class="mx-auto mt-8 max-w-md space-y-5"
+                    (ngSubmit)="resetPassword()"
+                    #resetPasswordForm="ngForm"
+                  >
+                    <!-- NEW PASSWORD -->
+
+                    <div>
+                      <label for="newPassword" class="mb-2 block text-sm font-black text-[#32180B]">
+                        New Password
+                      </label>
+
+                      <input
+                        #newPasswordInput
+                        id="newPassword"
+                        type="password"
+                        name="newPassword"
+                        [(ngModel)]="newPassword"
+                        required
+                        minlength="6"
+                        autocomplete="new-password"
+                        class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                        placeholder="Enter new password"
+                      />
+
+                      <p class="mt-2 text-xs font-medium text-[#806F60]">
+                        Password must contain at least 6 characters.
+                      </p>
+                    </div>
+
+                    <!-- CONFIRM -->
+
+                    <div>
+                      <label
+                        for="confirmNewPassword"
+                        class="mb-2 block text-sm font-black text-[#32180B]"
+                      >
+                        Confirm New Password
+                      </label>
+
+                      <input
+                        id="confirmNewPassword"
+                        type="password"
+                        name="confirmNewPassword"
+                        [(ngModel)]="confirmNewPassword"
+                        required
+                        minlength="6"
+                        autocomplete="new-password"
+                        class="w-full rounded-2xl border border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3.5 font-medium text-[#32180B] outline-none placeholder:text-[#9A8876] focus:border-[#A95718] focus:ring-2 focus:ring-[#F5E6C8]"
+                        placeholder="Confirm new password"
+                      />
+                    </div>
+
+                    <!-- RESET -->
+
+                    <button
+                      type="submit"
+                      [disabled]="forgotLoading"
+                      class="w-full cursor-pointer rounded-2xl bg-[#A95718] px-6 py-3.5 font-bold text-white shadow-md transition-all duration-300 hover:bg-[#7F3D0D] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      @if (forgotLoading) {
+                        <i class="bi bi-arrow-repeat me-2 animate-spin"></i>
+
+                        Updating Password...
+                      } @else {
+                        <i class="bi bi-check-circle-fill me-2"></i>
+
+                        Reset Password
+                      }
+                    </button>
+                  </form>
+                }
+
+                <!-- SECURITY FOOTER -->
+
+                <div class="mx-auto mt-8 max-w-md border-t border-[#E8D5BA] pt-5 text-center">
+                  <p class="text-xs font-medium text-[#806F60]">
+                    <i class="bi bi-shield-lock-fill me-1 text-[#A95718]"></i>
+
+                    Your account security is our priority.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

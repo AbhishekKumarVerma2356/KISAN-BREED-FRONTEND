@@ -1,0 +1,389 @@
+<section class="min-h-screen bg-[#FFFDF7]">
+  <!-- ========================================================= -->
+  <!-- HERO SECTION -->
+  <!-- ========================================================= -->
+  <section class="relative w-full overflow-hidden bg-[#F5E6C8]">
+    <!-- ================================================= -->
+    <!-- BACKGROUND IMAGE -->
+    <!-- NO CROPPING -->
+    <!-- ================================================= -->
+
+    <img
+      src="assets/images/kisanbreed_product__bg.png"
+      alt="Kisan Breed Products - Indian Agriculture"
+      class="block h-auto w-full max-w-none object-contain"
+    />
+
+    <!-- ================================================= -->
+    <!-- HERO CONTENT -->
+    <!-- ================================================= -->
+
+    <div class="absolute inset-0 flex items-center">
+      <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
+        <!-- ================================================= -->
+        <!-- TEXT PATCH -->
+        <!-- Same brown / cream design as Home page -->
+        <!-- ================================================= -->
+
+        <div
+          class="group inline-block max-w-2xl rounded-2xl border border-[#7A451F]/20 bg-[#F5E6C8]/40 p-4 shadow-lg backdrop-blur-[2px] transition-all duration-300 ease-out hover:bg-[#F5E6C8]/85 hover:shadow-2xl sm:p-6 lg:p-8"
+        >
+          <!-- LABEL -->
+
+          <p
+            class="text-xs font-black uppercase tracking-[0.25em] text-[#5A3218] transition-colors duration-300 group-hover:text-[#3B1F0F] sm:text-sm"
+          >
+            Our Products
+          </p>
+
+          <!-- TITLE -->
+
+          <h1
+            class="mt-3 text-3xl font-black leading-tight tracking-tight text-[#32180B] drop-shadow-sm transition-colors duration-300 group-hover:text-[#241006] sm:text-4xl lg:text-6xl"
+          >
+            Kisan Breed Products
+          </h1>
+
+          <!-- DESCRIPTION -->
+
+          <p
+            class="mt-4 max-w-2xl text-sm font-semibold leading-6 text-[#45230F] transition-colors duration-300 group-hover:text-[#32180B] sm:text-base sm:leading-7 lg:text-lg"
+          >
+            Explore our agricultural products designed for growth, quality, and farmer trust.
+          </p>
+
+          <!-- OPTIONAL SMALL TAG -->
+
+          <div class="mt-5">
+            <span
+              class="inline-flex items-center rounded-full bg-[#A95718] px-5 py-2 text-xs font-bold text-white shadow-md transition-all duration-300 hover:bg-[#7F3D0D] hover:shadow-lg sm:text-sm"
+            >
+              Quality • Growth • Trust
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PRODUCTS SECTION -->
+  <!-- ========================================================= -->
+
+  <section class="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="mx-auto max-w-7xl">
+      <!-- ======================================================= -->
+      <!-- SECTION HEADER -->
+      <!-- ======================================================= -->
+
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-xs font-black uppercase tracking-[0.25em] text-[#A95718]">
+            Explore Collection
+          </p>
+
+          <h2 class="mt-2 text-3xl font-black tracking-tight text-[#32180B] sm:text-4xl">
+            Our Products
+          </h2>
+
+          <p class="mt-2 max-w-2xl text-sm font-medium leading-6 text-[#806F60]">
+            Choose from our collection of quality products.
+          </p>
+        </div>
+
+        <!-- Trust badge -->
+
+        <div
+          class="flex w-fit items-center gap-3 rounded-2xl border border-[#E8D5BA] bg-white px-4 py-3 shadow-sm"
+        >
+          <div
+            class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F5E6C8] text-[#A95718]"
+          >
+            <i class="bi bi-shield-check"></i>
+          </div>
+
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-wider text-[#806F60]">Our Promise</p>
+
+            <p class="text-xs font-black text-[#5A3218]">Quality • Trust • Purity</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================= -->
+      <!-- PRODUCT DATA -->
+      <!-- ======================================================= -->
+
+      @if (pageData$ | async; as data) {
+        @if (data.products.length > 0) {
+          <!-- ===================================================== -->
+          <!-- PRODUCT GRID -->
+          <!-- ===================================================== -->
+
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            @for (product of data.products; track product.id) {
+              <!-- ================================================= -->
+              <!-- PRODUCT CARD -->
+              <!-- ================================================= -->
+
+              <article
+                class="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[#E8D5BA] bg-white shadow-[0_8px_30px_rgba(90,50,24,0.07)] transition-all duration-300 hover:-translate-y-2 hover:border-[#D9B98F] hover:shadow-[0_25px_55px_rgba(90,50,24,0.15)]"
+              >
+                <!-- ================================================= -->
+                <!-- IMAGE -->
+                <!-- ================================================= -->
+
+                <div class="relative aspect-[4/3] overflow-hidden bg-[#F5E6C8]">
+                  <img
+                    [src]="product.image"
+                    [alt]="product.name"
+                    class="h-full w-full object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-110"
+                    loading="lazy"
+                  />
+
+                  <!-- Overlay -->
+
+                  <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#32180B]/25 via-transparent to-white/10"
+                  ></div>
+
+                  <!-- ================================================= -->
+                  <!-- DISCOUNT -->
+                  <!-- ================================================= -->
+
+                  @if (
+                    product.category !== 'Coming Soon' && product.discount && product.discount > 0
+                  ) {
+                    <div
+                      class="absolute left-4 top-4 rounded-full bg-[#B23A1A] px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-white shadow-lg"
+                    >
+                      {{ product.discount }}% OFF
+                    </div>
+                  }
+
+                  <!-- ================================================= -->
+                  <!-- COMING SOON -->
+                  <!-- ================================================= -->
+
+                  @if (product.category === 'Coming Soon') {
+                    <div
+                      class="absolute left-4 top-4 rounded-full bg-[#32180B]/90 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-wider text-white shadow-lg backdrop-blur-md"
+                    >
+                      Coming Soon
+                    </div>
+                  }
+
+                  <!-- ================================================= -->
+                  <!-- VIEW PRODUCT -->
+                  <!-- ================================================= -->
+
+                  @if (product.category !== 'Coming Soon') {
+                    <button
+                      type="button"
+                      [routerLink]="['/products', product.slug]"
+                      title="View Product"
+                      class="absolute bottom-4 right-4 flex h-11 w-11 translate-y-3 items-center justify-center rounded-full bg-white/95 text-[#5A3218] opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-[#5A3218] hover:text-white group-hover:translate-y-0 group-hover:opacity-100"
+                    >
+                      <i class="bi bi-eye-fill"></i>
+                    </button>
+                  }
+                </div>
+
+                <!-- ================================================= -->
+                <!-- CONTENT -->
+                <!-- ================================================= -->
+
+                <div class="flex flex-1 flex-col p-5">
+                  <!-- ================================================= -->
+                  <!-- RATING -->
+                  <!-- ================================================= -->
+
+                  @if (product.category !== 'Coming Soon') {
+                    <div class="mb-3 flex items-center gap-2">
+                      <div class="flex items-center gap-0.5">
+                        @for (star of getRatingStars(product.avgReview); track $index) {
+                          <span
+                            class="text-[17px] leading-none"
+                            [class.text-[#F59E0B]]="star === '★'"
+                            [class.text-[#D9C5A8]]="star === '☆'"
+                          >
+                            {{ star }}
+                          </span>
+                        }
+                      </div>
+
+                      <span class="text-sm font-black text-[#5A3218]">
+                        {{ product.avgReview || 0 | number: '1.1-1' }}
+                      </span>
+
+                      <span class="text-xs font-medium text-[#806F60]">
+                        ({{ product.reviewCount || 0 }})
+                      </span>
+                    </div>
+                  }
+
+                  <!-- ================================================= -->
+                  <!-- PRODUCT NAME -->
+                  <!-- ================================================= -->
+
+                  <h3
+                    class="line-clamp-2 min-h-[3.5rem] text-lg font-black leading-7 text-[#32180B] transition-colors duration-200 group-hover:text-[#A95718]"
+                  >
+                    {{ product.name }}
+                  </h3>
+
+                  <!-- ================================================= -->
+                  <!-- CATEGORY -->
+                  <!-- ================================================= -->
+
+                  <div class="mt-2">
+                    @if (product.category === 'Coming Soon') {
+                      <span
+                        class="inline-flex items-center gap-1.5 rounded-full bg-[#FFF0E6] px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#B23A1A]"
+                      >
+                        <span class="h-1.5 w-1.5 rounded-full bg-[#B23A1A]"></span>
+
+                        Coming Soon
+                      </span>
+                    } @else {
+                      <span
+                        class="inline-flex items-center gap-1.5 rounded-full bg-[#F5E6C8] px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#8B5A2B]"
+                      >
+                        <i class="bi bi-grid-fill text-[9px]"></i>
+
+                        {{ product.category }}
+                      </span>
+                    }
+                  </div>
+
+                  <!-- ================================================= -->
+                  <!-- QUANTITY + UNIT -->
+                  <!-- ================================================= -->
+
+                  @if (product.category !== 'Coming Soon') {
+                    <div
+                      class="mt-4 flex items-center gap-3 rounded-xl border border-[#E8D5BA] bg-[#FFFDF7] px-3 py-2.5"
+                    >
+                      <div
+                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F5E6C8] text-[#A95718]"
+                      >
+                        <i class="bi bi-box-seam-fill"></i>
+                      </div>
+
+                      <div>
+                        <p class="text-[9px] font-black uppercase tracking-[0.15em] text-[#806F60]">
+                          Pack Size
+                        </p>
+
+                        <p class="mt-0.5 text-sm font-black text-[#5A3218]">
+                          {{ product.quantity }}
+                          {{ product.unitOfMeasure }}
+                        </p>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- ================================================= -->
+                  <!-- PRICE -->
+                  <!-- ================================================= -->
+
+                  @if (product.category !== 'Coming Soon') {
+                    <div class="mt-5">
+                      <p class="text-[9px] font-black uppercase tracking-[0.18em] text-[#806F60]">
+                        Price
+                      </p>
+
+                      <div class="mt-1 flex flex-wrap items-center gap-2">
+                        <span class="text-2xl font-black tracking-tight text-[#32180B]">
+                          ₹{{ product.price | number: '1.0-2' }}
+                        </span>
+
+                        @if (product.discount && product.discount > 0) {
+                          <span class="text-xs font-bold text-[#9A8876] line-through">
+                            ₹{{ product.price / (1 - product.discount / 100) | number: '1.0-2' }}
+                          </span>
+                        }
+                      </div>
+                    </div>
+                  } @else {
+                    <div class="mt-5">
+                      <div class="flex items-center gap-2 text-sm font-bold text-[#9A8876]">
+                        <i class="bi bi-clock-history text-[#A95718]"></i>
+
+                        Product launching soon
+                      </div>
+                    </div>
+                  }
+
+                  <!-- ================================================= -->
+                  <!-- ACTION BUTTONS -->
+                  <!-- ================================================= -->
+
+                  @if (product.category !== 'Coming Soon') {
+                    <div class="mt-auto grid grid-cols-2 gap-3 pt-5">
+                      <!-- ADD TO CART -->
+
+                      <button
+                        type="button"
+                        (click)="addToCart(product)"
+                        class="flex items-center justify-center gap-2 rounded-xl border-2 border-[#5A3218] bg-white px-3 py-3 text-xs font-black text-[#5A3218] transition-all duration-200 hover:bg-[#5A3218] hover:text-white active:scale-95"
+                      >
+                        <i class="bi bi-cart-plus-fill"></i>
+
+                        Add to Cart
+                      </button>
+
+                      <!-- BUY NOW -->
+
+                      <button
+                        type="button"
+                        (click)="buyNow(product)"
+                        class="flex items-center justify-center gap-2 rounded-xl bg-[#A95718] px-3 py-3 text-xs font-black text-white shadow-sm transition-all duration-200 hover:bg-[#7F3D0D] hover:shadow-lg active:scale-95"
+                      >
+                        <i class="bi bi-lightning-fill"></i>
+
+                        Buy Now
+                      </button>
+                    </div>
+                  } @else {
+                    <!-- COMING SOON -->
+
+                    <div class="mt-auto pt-5">
+                      <div
+                        class="flex items-center justify-center gap-2 rounded-xl border border-dashed border-[#D9C5A8] bg-[#FFFDF7] px-4 py-3 text-xs font-bold text-[#806F60]"
+                      >
+                        <i class="bi bi-hourglass-split text-[#A95718]"></i>
+
+                        Available soon
+                      </div>
+                    </div>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+        } @else {
+          <!-- ===================================================== -->
+          <!-- EMPTY -->
+          <!-- ===================================================== -->
+
+          <div
+            class="flex min-h-[420px] flex-col items-center justify-center rounded-[2rem] border border-[#E8D5BA] bg-white px-6 text-center shadow-sm"
+          >
+            <div
+              class="flex h-20 w-20 items-center justify-center rounded-3xl bg-[#F5E6C8] text-3xl text-[#A95718]"
+            >
+              <i class="bi bi-box-seam"></i>
+            </div>
+
+            <h2 class="mt-6 text-xl font-black text-[#32180B]">No Products Available</h2>
+
+            <p class="mt-2 max-w-md text-sm font-medium leading-6 text-[#806F60]">
+              We couldn't find any products at the moment. Please check again later.
+            </p>
+          </div>
+        }
+      }
+    </div>
+  </section>
+</section>

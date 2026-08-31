@@ -1,0 +1,823 @@
+<!-- =========================================================== -->
+<!-- PAGE CONTENT                                                -->
+<!-- =========================================================== -->
+
+@if (!pageLoading) {
+  <!-- ========================================================= -->
+  <!-- PRODUCT EXISTS                                            -->
+  <!-- ========================================================= -->
+
+  @if (product) {
+    <!-- ======================================================= -->
+    <!-- PRODUCT HERO                                            -->
+    <!-- ======================================================= -->
+
+    <section class="relative overflow-hidden bg-[#F5E6C8] py-14 sm:py-16">
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style="
+          background-image: url('assets/images/kisanbreed_backgound_wm.png');
+          background-size: 420px;
+          background-position: center;
+          background-repeat: repeat;
+        "
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p class="text-sm font-black uppercase tracking-[0.25em] text-[#A95718]">Product Details</p>
+
+        <h1
+          class="mt-4 text-4xl font-black leading-tight tracking-tight text-[#32180B] sm:text-5xl lg:text-6xl"
+        >
+          {{ product.name }}
+        </h1>
+
+        <p class="mt-5 max-w-3xl text-base font-medium leading-8 text-[#5A3218] sm:text-lg">
+          {{ product.shortDescription }}
+        </p>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- PRODUCT DETAILS                                         -->
+    <!-- ======================================================= -->
+
+    <section class="relative overflow-hidden bg-[#FFFDF5] py-16 sm:py-20">
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style="
+          background-image: url('assets/images/kisanbreed_backgound_wm.png');
+          background-size: 500px;
+          background-position: center;
+          background-repeat: repeat;
+        "
+      ></div>
+
+      <div
+        class="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8"
+      >
+        <!-- PRODUCT IMAGE -->
+
+        <div class="flex justify-center lg:justify-start">
+          <div
+            class="group w-full max-w-md overflow-hidden rounded-3xl border border-[#8B5A2B]/15 bg-[#F5E6C8]/40 p-3 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl lg:max-w-lg"
+          >
+            <div class="overflow-hidden rounded-2xl bg-white">
+              <img
+                [src]="normalizeImageUrl(product?.image)"
+                [alt]="product?.name || 'Product'"
+                class="h-105 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-130 lg:h-162.5 xl:h-175"
+                (error)="onImageError($event)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div class="flex items-center">
+          <div class="w-full">
+            <!-- CATEGORY -->
+
+            <span
+              class="inline-flex rounded-full bg-[#F5E6C8] px-4 py-1.5 text-sm font-black text-[#5A3218]"
+            >
+              {{ product.category }}
+            </span>
+
+            <!-- NAME -->
+
+            <h2 class="mt-5 text-3xl font-black leading-tight text-[#32180B] sm:text-4xl">
+              {{ product.name }}
+            </h2>
+
+            <!-- PRICE -->
+
+            @if (product.price) {
+              <div class="mt-5 flex flex-wrap items-center gap-4">
+                <div class="inline-flex items-center rounded-xl bg-[#FFF3E6] px-5 py-3">
+                  <span class="text-2xl font-black text-[#A95718]"> ₹{{ product.price }} </span>
+                </div>
+
+                @if (product.discount) {
+                  <div
+                    class="inline-flex items-center rounded-full bg-[#5A3218] px-4 py-2 text-sm font-black text-white shadow-md"
+                  >
+                    {{ product.discount }}% OFF
+                  </div>
+                }
+              </div>
+
+              @if (product.discount) {
+                <div class="mt-3">
+                  <span class="text-sm font-semibold text-[#8B5A2B]"> Discounted Price </span>
+
+                  <p class="mt-1 text-3xl font-black text-[#A95718]">
+                    ₹{{ (product.price - (product.price * product.discount) / 100).toFixed(2) }}
+                  </p>
+                </div>
+              }
+            }
+
+            <!-- DESCRIPTION -->
+
+            <p class="mt-6 text-base font-medium leading-8 text-[#5A4636] sm:text-lg">
+              {{ product.description || product.shortDescription }}
+            </p>
+
+            <div class="my-7 h-px w-full bg-[#8B5A2B]/15"></div>
+
+            <!-- ACTIONS -->
+
+            <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <button
+                type="button"
+                (click)="addToCart(product)"
+                class="inline-flex items-center justify-center rounded-full bg-[#5A3218] px-7 py-3.5 font-bold text-white shadow-md transition duration-300 hover:bg-[#3B1F0F] hover:shadow-xl active:scale-95"
+              >
+                Add to Cart
+              </button>
+
+              <button
+                type="button"
+                (click)="buyNow(product)"
+                class="inline-flex items-center justify-center rounded-full bg-[#A95718] px-7 py-3.5 font-bold text-white shadow-md transition duration-300 hover:bg-[#7F3D0D] hover:shadow-xl active:scale-95"
+              >
+                Buy Now
+              </button>
+
+              <a
+                routerLink="/products"
+                class="inline-flex items-center justify-center rounded-full border-2 border-[#6B3F1F] bg-[#F5E6C8]/40 px-7 py-3.5 font-bold text-[#3B1F0F] transition hover:bg-[#3B1F0F] hover:text-[#F5E6C8]"
+              >
+                ← Back to Products
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- REVIEWS                                                  -->
+    <!-- ======================================================= -->
+
+    <section class="relative overflow-hidden bg-[#FFFDF5] py-16 sm:py-20">
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style="
+          background-image: url('assets/images/kisanbreed_backgound_wm.png');
+          background-size: 500px;
+          background-position: center;
+          background-repeat: repeat;
+        "
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- ================================================= -->
+        <!-- REVIEW HEADER                                     -->
+        <!-- ================================================= -->
+
+        <div
+          class="flex flex-col gap-5 border-b border-[#8B5A2B]/15 pb-8 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div>
+            <p class="text-sm font-black uppercase tracking-[0.25em] text-[#A95718]">
+              Customer Reviews
+            </p>
+
+            <h2 class="mt-2 text-3xl font-black text-[#32180B] sm:text-4xl">
+              What Our Customers Say
+            </h2>
+
+            <p class="mt-2 text-sm font-medium text-[#6B4A35]">
+              Real experiences from Kisan Breed customers.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            (click)="writeReview(product)"
+            class="inline-flex shrink-0 items-center justify-center rounded-full bg-[#5A3218] px-7 py-3.5 font-bold text-white shadow-md transition hover:bg-[#3B1F0F]"
+          >
+            <svg
+              class="mr-2 h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9" />
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.5 3.5a2.121 2.121 0 013 3L8 18l-4 1 1-4L16.5 3.5z"
+              />
+            </svg>
+
+            Write a Review
+          </button>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- REVIEW FORM                                       -->
+        <!-- ================================================= -->
+
+        @if (showReviewForm) {
+          <div
+            id="review-form"
+            class="mt-8 rounded-3xl border border-[#8B5A2B]/15 bg-[#FFF9EF] p-6 shadow-xl sm:p-8"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs font-black uppercase tracking-[0.2em] text-[#A95718]">
+                  Share Your Experience
+                </p>
+
+                <h3 class="mt-2 text-2xl font-black text-[#32180B]">Write a Review</h3>
+              </div>
+
+              <button
+                type="button"
+                (click)="closeReviewForm()"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5E6C8] text-xl font-bold text-[#5A3218]"
+              >
+                ×
+              </button>
+            </div>
+
+            @if (reviewSuccess) {
+              <div
+                class="mt-6 rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-sm font-bold text-green-800"
+              >
+                ✓ {{ reviewSuccess }}
+              </div>
+            }
+
+            @if (reviewFormError) {
+              <div
+                class="mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-semibold text-red-700"
+              >
+                {{ reviewFormError }}
+              </div>
+            }
+
+            <div class="mt-7 grid gap-6 lg:grid-cols-2">
+              <!-- RATING -->
+
+              <div>
+                <label class="text-sm font-black text-[#32180B]"> Your Rating </label>
+
+                <div class="mt-3 flex items-center gap-2">
+                  @for (star of getStars(5); track star) {
+                    <button
+                      type="button"
+                      (click)="setReviewRating(star)"
+                      class="text-3xl transition hover:scale-110"
+                      [class.text-[#D08A2E]]="isStarActive(reviewRating, star)"
+                      [class.text-[#D8C09D]]="!isStarActive(reviewRating, star)"
+                    >
+                      ★
+                    </button>
+                  }
+                </div>
+
+                @if (reviewRating > 0) {
+                  <p class="mt-2 text-sm font-bold text-[#A95718]">
+                    {{ reviewRating }} out of 5 stars
+                  </p>
+                }
+              </div>
+
+              <!-- TITLE -->
+
+              <div>
+                <label class="text-sm font-black text-[#32180B]"> Review Title </label>
+
+                <input
+                  type="text"
+                  [(ngModel)]="reviewTitle"
+                  maxlength="200"
+                  placeholder="Give your review a title"
+                  class="mt-3 w-full rounded-xl border border-[#8B5A2B]/20 bg-white px-4 py-3 text-sm font-medium text-[#32180B] outline-none"
+                />
+              </div>
+
+              <!-- CONTENT -->
+
+              <div class="lg:col-span-2">
+                <label class="text-sm font-black text-[#32180B]"> Your Review </label>
+
+                <textarea
+                  [(ngModel)]="reviewContent"
+                  rows="6"
+                  maxlength="2000"
+                  placeholder="Tell us about your experience with this product..."
+                  class="mt-3 w-full resize-none rounded-xl border border-[#8B5A2B]/20 bg-white px-4 py-3 text-sm font-medium leading-7 text-[#32180B] outline-none"
+                ></textarea>
+
+                <div class="mt-1 text-right text-xs font-medium text-[#8B5A2B]">
+                  {{ reviewContent.length }}/2000
+                </div>
+              </div>
+
+              <!-- IMAGE -->
+
+              <div class="lg:col-span-2">
+                <label class="text-sm font-black text-[#32180B]">
+                  Add a Photo
+                  <span class="font-medium text-[#8B5A2B]"> (Optional) </span>
+                </label>
+
+                <div class="mt-3">
+                  @if (!reviewImagePreview) {
+                    <label
+                      class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#A95718]/30 bg-[#F5E6C8]/30 px-6 py-10 text-center"
+                    >
+                      <svg
+                        class="h-10 w-10 text-[#A95718]"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+
+                        <path d="M21 15l-5-5L5 21" />
+                      </svg>
+
+                      <p class="mt-3 text-sm font-bold text-[#32180B]">Click to upload a photo</p>
+
+                      <p class="mt-1 text-xs font-medium text-[#8B5A2B]">
+                        JPG, PNG or WEBP • Max 5 MB
+                      </p>
+
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        class="hidden"
+                        (change)="onReviewImageSelected($event)"
+                      />
+                    </label>
+                  } @else {
+                    <div
+                      class="relative w-fit overflow-hidden rounded-2xl border border-[#8B5A2B]/20 bg-white p-2 shadow-md"
+                    >
+                      <img
+                        [src]="reviewImagePreview"
+                        alt="Review preview"
+                        class="h-40 w-40 rounded-xl object-cover"
+                      />
+
+                      <button
+                        type="button"
+                        (click)="removeReviewImage()"
+                        class="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#32180B] text-lg font-bold text-white"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM ACTIONS -->
+
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <button
+                type="button"
+                (click)="closeReviewForm()"
+                class="rounded-full border-2 border-[#6B3F1F] px-7 py-3 font-bold text-[#3B1F0F]"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                [disabled]="reviewSubmitting"
+                (click)="submitReview(product)"
+                class="rounded-full bg-[#A95718] px-8 py-3 font-bold text-white shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                @if (reviewSubmitting) {
+                  <span class="inline-flex items-center gap-2">
+                    <span
+                      class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+                    ></span>
+
+                    Submitting...
+                  </span>
+                } @else {
+                  Submit Review
+                }
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- FILTERS                                           -->
+        <!-- ================================================= -->
+
+        <div class="mt-10 rounded-3xl border border-[#8B5A2B]/15 bg-[#F5E6C8]/30 p-5 sm:p-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm font-black text-[#32180B]">Filters</p>
+
+              <p class="mt-1 text-xs font-medium text-[#8B5A2B]">Filter reviews by rating</p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                (click)="filterReviews(null)"
+                class="rounded-full px-4 py-2 text-xs font-black"
+                [class.bg-[#5A3218]]="selectedRating === null"
+                [class.text-white]="selectedRating === null"
+                [class.bg-white]="selectedRating !== null"
+                [class.text-[#5A3218]]="selectedRating !== null"
+              >
+                All
+              </button>
+
+              @for (rating of [5, 4, 3, 2, 1]; track rating) {
+                <button
+                  type="button"
+                  (click)="filterReviews(rating)"
+                  class="rounded-full px-4 py-2 text-xs font-black"
+                  [class.bg-[#5A3218]]="selectedRating === rating"
+                  [class.text-white]="selectedRating === rating"
+                  [class.bg-white]="selectedRating !== rating"
+                  [class.text-[#5A3218]]="selectedRating !== rating"
+                >
+                  {{ rating }} ★
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- REVIEW LOADING                                    -->
+        <!-- ================================================= -->
+
+        @if (reviewsLoading) {
+          <div class="flex justify-center py-16">
+            <div
+              class="h-10 w-10 animate-spin rounded-full border-4 border-[#F5E6C8] border-t-[#A95718]"
+            ></div>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- REVIEW ERROR                                      -->
+        <!-- ================================================= -->
+
+        @if (!reviewsLoading && reviewError) {
+          <div
+            class="mt-8 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-semibold text-red-700"
+          >
+            {{ reviewError }}
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- NO REVIEWS                                        -->
+        <!-- ================================================= -->
+
+        @if (!reviewsLoading && !reviewError && filteredReviews.length === 0) {
+          <div
+            class="mt-8 rounded-3xl border border-[#8B5A2B]/15 bg-[#FFF9EF] px-6 py-14 text-center"
+          >
+            <div
+              class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#F5E6C8]"
+            >
+              <span class="text-3xl text-[#A95718]"> ★ </span>
+            </div>
+
+            <h3 class="mt-5 text-xl font-black text-[#32180B]">No reviews yet</h3>
+
+            <p class="mt-2 text-sm font-medium text-[#8B5A2B]">
+              Be the first customer to review this product.
+            </p>
+          </div>
+        }
+
+        <!-- ================================================= -->
+        <!-- REVIEW LIST                                       -->
+        <!-- ================================================= -->
+
+        @if (!reviewsLoading && filteredReviews.length > 0) {
+          <div class="mt-8">
+            @for (review of filteredReviews; track review.id) {
+              <article class="border-b border-[#8B5A2B]/15 py-8 first:pt-0">
+                <!-- RATING -->
+
+                <div class="flex items-center gap-1">
+                  @for (star of getStars(5); track star) {
+                    <span
+                      class="text-xl"
+                      [class.text-[#D08A2E]]="isStarActive(review.rating, star)"
+                      [class.text-[#D8C09D]]="!isStarActive(review.rating, star)"
+                    >
+                      ★
+                    </span>
+                  }
+                </div>
+
+                <!-- CUSTOMER -->
+
+                <div class="mt-3 flex items-center gap-3">
+                  <div
+                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F5E6C8] text-sm font-black text-[#5A3218]"
+                  >
+                    {{ getReviewerName(review).charAt(0).toUpperCase() }}
+                  </div>
+
+                  <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                      <h3 class="text-sm font-black text-[#32180B]">
+                        {{ getReviewerName(review) }}
+                      </h3>
+
+                      @if (review.is_verified) {
+                        <span
+                          class="rounded-full border border-[#5A3218] px-2 py-0.5 text-[10px] font-bold text-[#5A3218]"
+                        >
+                          Verified
+                        </span>
+                      }
+                    </div>
+
+                    <p class="text-xs font-medium text-[#8B5A2B]">
+                      {{ formatReviewDate(review.created_at) }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- TITLE -->
+
+                @if (review.title) {
+                  <h4 class="mt-5 text-lg font-black text-[#32180B]">
+                    {{ review.title }}
+                  </h4>
+                }
+
+                <!-- CONTENT -->
+
+                @if (review.content) {
+                  <p
+                    class="mt-2 max-w-4xl text-sm font-medium leading-7 text-[#5A4636] sm:text-base"
+                  >
+                    {{ review.content }}
+                  </p>
+                }
+
+                <!-- REVIEW IMAGE -->
+
+                @if (getReviewImage(review); as reviewImage) {
+                  <button
+                    type="button"
+                    (click)="openImagePopup(reviewImage, review)"
+                    class="group mt-5 block overflow-hidden rounded-2xl border border-[#8B5A2B]/15 bg-white shadow-sm"
+                  >
+                    <img
+                      [src]="reviewImage"
+                      alt="Customer review"
+                      class="h-40 w-40 object-cover transition duration-300 group-hover:scale-105 sm:h-44 sm:w-44"
+                    />
+                  </button>
+                }
+
+                <!-- PRODUCT REFERENCE -->
+
+                <div class="mt-5 flex items-center gap-3 rounded-2xl bg-[#F5E6C8]/45 p-3">
+                  @if (getReviewProductImage(review); as productImage) {
+                    <img
+                      [src]="normalizeImageUrl(product.image)"
+                      [alt]="product.name"
+                      class="h-14 w-14 shrink-0 rounded-xl bg-white object-cover shadow-sm"
+                    />
+                  }
+
+                  <div>
+                    <p class="text-xs font-medium text-[#8B5A2B]">Review for</p>
+
+                    <p class="text-sm font-bold text-[#32180B]">
+                      {{ review.product_name || review.product?.name || product.name }}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- IMAGE LIGHTBOX                                          -->
+    <!-- ======================================================= -->
+
+    @if (showImagePopup && selectedReview) {
+      <div
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#1A0D06]/80 p-3 backdrop-blur-sm sm:p-5"
+        (click)="closeImagePopup()"
+      >
+        <!-- =================================================== -->
+        <!-- POPUP CONTAINER                                     -->
+        <!-- =================================================== -->
+
+        <div
+          class="relative flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl md:h-[85vh] md:flex-row lg:h-[82vh]"
+          (click)="$event.stopPropagation()"
+        >
+          <!-- ================================================= -->
+          <!-- CLOSE BUTTON                                      -->
+          <!-- ================================================= -->
+
+          <button
+            type="button"
+            (click)="closeImagePopup()"
+            class="absolute right-3 top-3 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-2xl font-bold leading-none text-white backdrop-blur transition hover:bg-black"
+            aria-label="Close"
+          >
+            ×
+          </button>
+
+          <!-- ================================================= -->
+          <!-- LEFT IMAGE AREA                                   -->
+          <!-- ================================================= -->
+
+          <div
+            class="flex h-[55%] w-full items-center justify-center overflow-hidden bg-black p-4 sm:p-6 md:h-full md:w-[62%] lg:w-[64%]"
+          >
+            <!-- IMAGE CONTAINER -->
+
+            <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-xl">
+              <img
+                [src]="selectedImageUrl"
+                [alt]="selectedImageAlt"
+                class="block max-h-full max-w-full object-contain"
+              />
+            </div>
+          </div>
+
+          <!-- ================================================= -->
+          <!-- RIGHT REVIEW DETAILS                              -->
+          <!-- ================================================= -->
+
+          <div
+            class="flex h-[45%] w-full flex-col overflow-y-auto bg-white p-5 sm:p-6 md:h-full md:w-[38%] lg:w-[36%]"
+          >
+            <!-- ================================================= -->
+            <!-- RATING                                           -->
+            <!-- ================================================= -->
+
+            <div class="flex shrink-0 items-center gap-1">
+              @for (star of getStars(5); track star) {
+                <span
+                  class="text-lg"
+                  [class.text-[#D08A2E]]="isStarActive(selectedReview.rating, star)"
+                  [class.text-[#D8C09D]]="!isStarActive(selectedReview.rating, star)"
+                >
+                  ★
+                </span>
+              }
+            </div>
+
+            <!-- ================================================= -->
+            <!-- CUSTOMER                                         -->
+            <!-- ================================================= -->
+
+            <div class="mt-4 flex shrink-0 items-center gap-3">
+              <!-- AVATAR -->
+
+              <div
+                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F5E6C8] text-sm font-black text-[#5A3218]"
+              >
+                {{ selectedReview.customer_name?.charAt(0)?.toUpperCase() }}
+              </div>
+
+              <!-- NAME + DATE -->
+
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-sm font-black text-[#32180B]">
+                    {{ selectedReview.customer_name }}
+                  </h3>
+
+                  @if (selectedReview.is_verified) {
+                    <span
+                      class="rounded-full border border-[#5A3218] px-2 py-0.5 text-[10px] font-bold text-[#5A3218]"
+                    >
+                      Verified
+                    </span>
+                  }
+                </div>
+
+                <p class="mt-1 text-xs font-medium text-[#8B5A2B]">
+                  {{ formatReviewDate(selectedReview.created_at) }}
+                </p>
+              </div>
+            </div>
+
+            <!-- ================================================= -->
+            <!-- TITLE                                             -->
+            <!-- ================================================= -->
+
+            @if (selectedReview.title) {
+              <h2 class="mt-6 shrink-0 text-xl font-black leading-7 text-[#32180B] sm:text-2xl">
+                {{ selectedReview.title }}
+              </h2>
+            }
+
+            <!-- ================================================= -->
+            <!-- CONTENT                                           -->
+            <!-- ================================================= -->
+
+            @if (selectedReview.content) {
+              <p class="mt-3 shrink-0 text-sm font-medium leading-7 text-[#5A4636]">
+                {{ selectedReview.content }}
+              </p>
+            }
+
+            <!-- ================================================= -->
+            <!-- PRODUCT REFERENCE                                 -->
+            <!-- ================================================= -->
+
+            <div class="mt-6 flex shrink-0 items-center gap-3 rounded-xl bg-[#F5E6C8]/45 p-3">
+              <!-- PRODUCT IMAGE -->
+
+              @if (product?.image) {
+                <div
+                  class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white"
+                >
+                  <img
+                    [src]="normalizeImageUrl(product.image)"
+                    [alt]="
+                      selectedReview.product_name || selectedReview.product?.name || product.name
+                    "
+                    class="h-full w-full object-contain p-1"
+                    loading="lazy"
+                    (error)="onImageError($event)"
+                  />
+                </div>
+              }
+
+              <!-- PRODUCT NAME -->
+
+              <div class="min-w-0">
+                <p class="text-xs font-medium text-[#8B5A2B]">Review for</p>
+
+                <p class="mt-1 truncate text-sm font-bold text-[#32180B]">
+                  {{ selectedReview.product_name || selectedReview.product?.name || product.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- ========================================================= -->
+  <!-- PRODUCT NOT FOUND                                         -->
+  <!-- ========================================================= -->
+
+  @else {
+    <section class="flex min-h-[60vh] items-center justify-center bg-[#FFFDF5] px-4">
+      <div
+        class="rounded-3xl border border-[#8B5A2B]/15 bg-[#F5E6C8]/50 px-8 py-10 text-center shadow-lg"
+      >
+        <p class="text-lg font-bold text-[#8F4512]">Product not found.</p>
+
+        <a
+          routerLink="/products"
+          class="mt-5 inline-flex rounded-full bg-[#5A3218] px-6 py-3 font-bold text-white"
+        >
+          Back to Products
+        </a>
+      </div>
+    </section>
+  }
+}
+
+<!-- =========================================================== -->
+<!-- PAGE LOADING                                                -->
+<!-- =========================================================== -->
+
+@else {
+  <section class="flex min-h-[60vh] items-center justify-center bg-[#FFFDF5]">
+    <div class="text-center">
+      <div
+        class="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-[#F5E6C8] border-t-[#A95718]"
+      ></div>
+
+      <p class="mt-4 text-lg font-bold text-[#5A3218]">Loading product...</p>
+    </div>
+  </section>
+}
